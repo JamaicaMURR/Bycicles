@@ -48,7 +48,7 @@ namespace Bycicles.Randoms
 
             result.Add(min);
 
-            for(int i = min; i < max; i++)
+            for(int i = min + 1; i < max; i++)
                 result.Add(i);
 
             return rnd.Shuffle(result.ToArray());
