@@ -86,5 +86,16 @@ namespace Tests
 
             Assert.IsTrue((line == 1 && chance == 0.1) ^ (line == 2 && chance == 0.2) ^ (line == 3 && chance == 0.3) ^ (line == 4 && chance == 0.4));
         }
+
+        [TestMethod]
+        public void T_Fill()
+        {
+            Galton g = new Galton(5, 100);
+
+            g.Fill();
+
+            for(int i = 0; i < g.Lines; i++)
+                Assert.AreEqual(g.Overload, g[i]);
+        }
     }
 }

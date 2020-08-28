@@ -1,7 +1,6 @@
 ﻿using Bycicles.Randoms;
 using Bycicles.Ranges;
 using System;
-using System.Collections.Generic;
 
 namespace Bycicles
 {
@@ -36,7 +35,7 @@ namespace Bycicles
         public int Overload { get; }
 
         /// <summary>
-        /// Сумма знчений по всем линиям.
+        /// Сумма значений по всем линиям.
         /// </summary>
         public int Total { get; private set; }
 
@@ -205,6 +204,18 @@ namespace Bycicles
                 _highest.EnClose(level, step);
                 _highest = _highest.NotBelow(0).NotAbove(Overload);
             }
+        }
+
+        //=====================================================================================================||
+        /// <summary>
+        /// Полностью заполняет все линии.
+        /// </summary>
+        public void Fill()
+        {
+            for(int i = 0; i < _desk.Length; i++)
+                _desk[i] = Overload;
+
+            _highest = Overload;
         }
 
         //=====================================================================================================||
