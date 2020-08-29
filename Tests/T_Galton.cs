@@ -82,7 +82,7 @@ namespace Tests
             for(int i = 0; i < 5; i++)
                 g.Add(i, i);
 
-            int line = g.GetRandom(out double chance);
+            int line = g.GetLine(out double chance);
 
             Assert.IsTrue((line == 1 && chance == 0.1) ^ (line == 2 && chance == 0.2) ^ (line == 3 && chance == 0.3) ^ (line == 4 && chance == 0.4));
         }

@@ -223,14 +223,26 @@ namespace Bycicles
         /// Возвращает номер линии, выбранный случайным образом. Шансы линии попасть в результат прямо пропорциональны значению в ней.
         /// </summary>
         /// <returns></returns>
-        public int GetRandom()
+        public int GetLine()
         {
             if(_highest > 0)
-            {
                 return rnd.GetLuckyOne(_desk);
-            }
             else
                 throw new Exception("Galton is empty.");
+        }
+
+        //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        /// <summary>
+        /// Возвращает номер линии, выбранный случайным образом. Шансы линии попасть в результат прямо пропорциональны её длине.
+        /// </summary>
+        /// <param name="length"> Длина линии. </param>
+        /// <returns></returns>
+        public int GetLine(out int length)
+        {
+            int result = GetLine();
+            length = this[result];
+
+            return result;
         }
 
         //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -239,10 +251,9 @@ namespace Bycicles
         /// </summary>
         /// <param name="chances"> Вероятность, которой обладала линия, попавшая в результат. </param>
         /// <returns></returns>
-        public int GetRandom(out double chances)
+        public int GetLine(out double chances)
         {
-            int result = GetRandom();
-
+            int result = GetLine();
             chances = (double)this[result] / Total;
 
             return result;
