@@ -15,7 +15,8 @@ namespace Tests
             Galton g = new Galton(5, 100);
 
             for(int i = 0; i < 5; i++)
-                g.Add(i, i);
+                for(int j = 0; j < i; j++)
+                    g.Add(i);
 
             g.Change(10);
 
@@ -28,7 +29,8 @@ namespace Tests
             Galton g = new Galton(5, 100);
 
             for(int i = 0; i < 5; i++)
-                g.Add(i, i);
+                for(int j = 0; j < i; j++)
+                    g.Add(i);
 
             g.Equalize(2, 5);
 
@@ -41,7 +43,8 @@ namespace Tests
             Galton g = new Galton(5, 100);
 
             for(int i = 0; i < 5; i++)
-                g.Add(i, i);
+                for(int j = 0; j < i; j++)
+                    g.Add(i);
 
             g.Slice(2);
 
@@ -54,7 +57,8 @@ namespace Tests
             Galton g = new Galton(5, 100);
 
             for(int i = 0; i < 5; i++)
-                g.Add(i, i);
+                for(int j = 0; j < i; j++)
+                    g.Add(i);
 
             g.Rise(3, 1);
 
@@ -67,7 +71,8 @@ namespace Tests
             Galton g = new Galton(5, 100);
 
             for(int i = 0; i < 5; i++)
-                g.Add(i, i);
+                for(int j = 0; j < i; j++)
+                    g.Add(i);
 
             g.Fall(2, 5);
 
@@ -80,7 +85,7 @@ namespace Tests
             Galton g = new Galton(5, 100);
 
             for(int i = 0; i < 5; i++)
-                g.Add(i, i);
+                g.Add(i);
 
             int line = g.GetLine(out double chance);
 
@@ -92,10 +97,12 @@ namespace Tests
         {
             Galton g = new Galton(5, 100);
 
-            g.Fill();
+            g.Fill(g.Overload);
 
-            for(int i = 0; i < g.Lines; i++)
-                Assert.AreEqual(g.Overload, g[i]);
+            int line = g.GetLine(out double chance);
+
+            Assert.IsTrue((line == 0 && chance == 0.2) ^ (line == 1 && chance == 0.2) ^ (line == 2 && chance == 0.2) 
+                ^ (line == 3 && chance == 0.2) ^ (line == 4 && chance == 0.2));
         }
     }
 }
