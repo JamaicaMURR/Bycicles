@@ -311,10 +311,10 @@ namespace Bycicles.Ranges
         /// <returns></returns>
         public static int EnSec(this double val, double minran, double maxran, int sections)
         {
-            minran.ExNotAbove(maxran, "Range.");
-            val.ExNotBelow(minran, "Value.");
-            val.ExNotAbove(maxran, "Value.");
-            sections.ExNotBelow(1, "Sections number.");
+            minran.ExNotAbove(maxran, "EnSec range.");
+            val.ExNotBelow(minran, "EnSec value.");
+            val.ExNotAbove(maxran, "EnSec value.");
+            sections.ExNotBelow(1, "EnSec sections number.");
 
             double sectionSize = minran.Gap(maxran) / sections;
 
@@ -358,16 +358,16 @@ namespace Bycicles.Ranges
 
             if(val > targetval)
             {
-                if(val - stepsize > targetval)
-                    result = val - stepsize;
-                else
+                result = val - stepsize;
+
+                if(result < targetval)
                     result = targetval;
             }
             else
             {
-                if(val + stepsize < targetval)
-                    result = val + stepsize;
-                else
+                result = val + stepsize;
+
+                if(result > targetval)
                     result = targetval;
             }
 
@@ -398,16 +398,16 @@ namespace Bycicles.Ranges
 
             if(val > targetval)
             {
-                if(val - stepsize > targetval)
-                    result = val - stepsize;
-                else
+                result = val - stepsize;
+
+                if(result < targetval)
                     result = targetval;
             }
             else
             {
-                if(val + stepsize < targetval)
-                    result = val + stepsize;
-                else
+                result = val + stepsize;
+
+                if(result > targetval)
                     result = targetval;
             }
 

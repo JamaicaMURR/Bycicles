@@ -41,13 +41,12 @@ namespace Bycicles
         /// Добавляет значение.
         /// </summary>
         /// <param name="value"> Значение. </param>
-        /// <param name="amount"> Количество добавлений. </param>
-        public void Add(double value, int amount = 1)
+        public void Add(double value)
         {
             int line = value.EnSec(_min, _max, Lines);
 
-            base.Add(line, amount);
-            _avers[line].Add(value, amount);
+            base.Add(line);
+            _avers[line].Add(value);
         }
 
         //=====================================================================================================||

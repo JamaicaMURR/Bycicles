@@ -11,17 +11,7 @@ namespace Bycicles
     {
         static Random rnd = new Random();
 
-        int _highest = 0;
-
         int[] _desk;
-
-        //=====================================================================================================||
-        /// <summary>
-        /// Индексатор.
-        /// </summary>
-        /// <param name="i"> Номер линии. </param>
-        /// <returns> Значение в линии. </returns>
-        public int this[int i] => _desk[i];
 
         //=====================================================================================================||
         /// <summary>
@@ -39,6 +29,11 @@ namespace Bycicles
         /// </summary>
         public int Total { get; private set; }
 
+        /// <summary>
+        /// Наибольшее знаечение среди всех линий.
+        /// </summary>
+        public int Highest { get; private set; }
+
         //=====================================================================================================||
         // Constructors
         //=====================================================================================================||
@@ -49,8 +44,8 @@ namespace Bycicles
         /// <param name="overload"> Максимальное значение в линии. </param>
         public Galton(int lines, int overload)
         {
-            Lines = lines.ExNotBelow(1, "Lines.");
-            Overload = overload;
+            Lines = lines.ExNotBelow(1, "Galton lines.");
+            Overload = overload.ExNotBelow(1, "Galton overload.");
 
             _desk = new int[Lines];
         }
@@ -62,22 +57,20 @@ namespace Bycicles
         /// Добавляет значения в указанную линию.
         /// </summary>
         /// <param name="line"> Номер линии. </param>
-        /// <param name="amount"> Добавляемое значение. </param>
-        public void Add(int line, int amount = 1)
+        public void Add(int line)
         {
             line.ExNotBelow(0, "Line.");
-            line.ExNotAbove(Lines - 1, "Line.");
-            amount.ExNotBelow(0, "Amount.");
+            line.ExNotAbove(Lines - 1, "Line number.");
 
-            Total += amount;
+            _desk[line]++;
 
-            _desk[line] += amount;
+            Total++;
 
-            if(_desk[line] > _highest)
-                _highest = _desk[line];
+            if(_desk[line] > Highest)
+                Highest = _desk[line];
 
-            if(_highest > Overload)
-                Change(Overload - _highest);
+            if(Highest > Overload)
+                Change(Overload - Highest);
         }
 
         //=====================================================================================================||
@@ -93,11 +86,12 @@ namespace Bycicles
             {
                 _desk[i] += step;
                 _desk[i] = _desk[i].NotBelow(0).NotAbove(Overload);
+
                 Total += _desk[i];
             }
 
-            _highest += step;
-            _highest = _highest.NotBelow(0).NotAbove(Overload);
+            Highest += step;
+            Highest = Highest.NotBelow(0).NotAbove(Overload);
         }
 
         //=====================================================================================================||
@@ -119,8 +113,8 @@ namespace Bycicles
                 Total += _desk[i];
             }
 
-            if(_highest > level)
-                _highest = level;
+            if(Highest > level)
+                Highest = level;
         }
 
         //=====================================================================================================||
@@ -142,8 +136,8 @@ namespace Bycicles
                 Total += _desk[i];
             }
 
-            _highest.EnClose(level, step);
-            _highest = _highest.NotBelow(0).NotAbove(Overload);
+            Highest.EnClose(level, step);
+            Highest = Highest.NotBelow(0).NotAbove(Overload);
         }
 
         //=====================================================================================================||
@@ -169,10 +163,10 @@ namespace Bycicles
                 Total += _desk[i];
             }
 
-            if(_highest < level)
+            if(Highest < level)
             {
-                _highest.EnClose(level, step);
-                _highest = _highest.NotBelow(0).NotAbove(Overload);
+                Highest.EnClose(level, step);
+                Highest = Highest.NotBelow(0).NotAbove(Overload);
             }
         }
 
@@ -199,10 +193,10 @@ namespace Bycicles
                 Total += _desk[i];
             }
 
-            if(_highest > level)
+            if(Highest > level)
             {
-                _highest.EnClose(level, step);
-                _highest = _highest.NotBelow(0).NotAbove(Overload);
+                Highest.EnClose(level, step);
+                Highest = Highest.NotBelow(0).NotAbove(Overload);
             }
         }
 
@@ -210,12 +204,15 @@ namespace Bycicles
         /// <summary>
         /// Полностью заполняет все линии.
         /// </summary>
-        public void Fill()
+        public void Fill(int val)
         {
-            for(int i = 0; i < _desk.Length; i++)
-                _desk[i] = Overload;
+            val = val.NotBelow(0).NotAbove(Overload);
 
-            _highest = Overload;
+            for(int i = 0; i < _desk.Length; i++)
+                _desk[i] = val;
+
+            Total = val * Lines;
+            Highest = val;
         }
 
         //=====================================================================================================||
@@ -225,7 +222,7 @@ namespace Bycicles
         /// <returns></returns>
         public int GetLine()
         {
-            if(_highest > 0)
+            if(Highest > 0)
                 return rnd.GetLuckyOne(_desk);
             else
                 throw new Exception("Galton is empty.");
@@ -240,7 +237,7 @@ namespace Bycicles
         public int GetLine(out int length)
         {
             int result = GetLine();
-            length = this[result];
+            length = _desk[result];
 
             return result;
         }
@@ -254,7 +251,7 @@ namespace Bycicles
         public int GetLine(out double chances)
         {
             int result = GetLine();
-            chances = (double)this[result] / Total;
+            chances = (double)_desk[result] / Total;
 
             return result;
         }
