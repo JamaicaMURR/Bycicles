@@ -99,7 +99,7 @@ namespace Bycicles.Randoms
         /// <returns></returns>
         public static int GetLuckyOne(this Random rnd, params int[] bets)
         {
-            bets.Length.ExNotBelow(1, "Bets.");
+            bets.Length.ExNotBelow(1, "No bets!");
 
             int[] thresholds = new int[bets.Length];
 
@@ -107,22 +107,72 @@ namespace Bycicles.Randoms
 
             for(int i = 0; i < bets.Length; i++)
             {
-                bets[i].ExNotBelow(0, "Odds.");
+                bets[i].ExNotBelow(0, "Wrong odds!");
 
                 summ += bets[i];
 
                 thresholds[i] = summ;
             }
 
-            int point = rnd.Next(0, summ);
             int result = 0;
 
-            for(int i = 0; i < thresholds.Length; i++)
-                if(point < thresholds[i])
-                {
-                    result = i;
-                    break;
-                }
+            if(summ > 0)
+            {
+                int point = rnd.Next(0, summ);
+
+                for(int i = 0; i < thresholds.Length; i++)
+                    if(point < thresholds[i])
+                    {
+                        result = i;
+                        break;
+                    }
+            }
+            else
+                result = rnd.Next(0, bets.Length);
+
+            return result;
+        }
+
+        //=====================================================================================================||
+        /// <summary>
+        /// Случайным образом выбирает одну из победивших ставок. Чем болше ставка, тем больше её шансы на победу.
+        /// </summary>
+        /// <param name="rnd"> Рандом объект. </param>
+        /// <param name="bets"> Ставки. </param>
+        /// <returns></returns>
+        public static int GetLuckyOne(this Random rnd, params byte[] bets)
+        {
+            bets.Length.ExNotBelow(1, "No bets!");
+
+            int[] thresholds = new int[bets.Length];
+
+            int summ = 0;
+
+            for(int i = 0; i < bets.Length; i++)
+            {
+                if(bets[i] < 0)
+                    throw new Exception("Wrong odds!");
+
+                summ += bets[i];
+
+                thresholds[i] = summ;
+            }
+
+            int result = 0;
+
+            if(summ > 0)
+            {
+                int point = rnd.Next(0, summ);
+
+                for(int i = 0; i < thresholds.Length; i++)
+                    if(point < thresholds[i])
+                    {
+                        result = i;
+                        break;
+                    }
+            }
+            else
+                result = rnd.Next(0, bets.Length);
 
             return result;
         }
