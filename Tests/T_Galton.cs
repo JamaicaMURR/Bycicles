@@ -85,11 +85,16 @@ namespace Tests
             Galton g = new Galton(5, 100);
 
             for(int i = 0; i < 5; i++)
-                g.Add(i);
+                for(int j = 0; j < i; j++)
+                    g.Add(i);
 
-            int line = g.GetLine(out double chance);
+            for(int i = 0; i < 100; i++)
+            {
+                int line = g.GetLine(out double chance);
 
-            Assert.IsTrue((line == 1 && chance == 0.1) ^ (line == 2 && chance == 0.2) ^ (line == 3 && chance == 0.3) ^ (line == 4 && chance == 0.4));
+                Assert.IsTrue(line == 1 ^ line == 2 ^ line == 3 ^ line == 4, "Wrong line! " + line + " chance " + chance);
+                Assert.IsTrue(chance == 0.1 ^ chance == 0.2 ^ chance == 0.3 ^ chance == 0.4, "Wrong chance! " + chance);
+            }
         }
 
         [TestMethod]
@@ -101,7 +106,7 @@ namespace Tests
 
             int line = g.GetLine(out double chance);
 
-            Assert.IsTrue((line == 0 && chance == 0.2) ^ (line == 1 && chance == 0.2) ^ (line == 2 && chance == 0.2) 
+            Assert.IsTrue((line == 0 && chance == 0.2) ^ (line == 1 && chance == 0.2) ^ (line == 2 && chance == 0.2)
                 ^ (line == 3 && chance == 0.2) ^ (line == 4 && chance == 0.2));
         }
     }
