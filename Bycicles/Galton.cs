@@ -17,12 +17,12 @@ namespace Bycicles
         /// <summary>
         /// Количество линий.
         /// </summary>
-        public int Lines { get; }
+        public int Width { get; }
 
         /// <summary>
         /// Ограничение максимального значения в линии.
         /// </summary>
-        public int Overload { get; }
+        public int Height { get; }
 
         /// <summary>
         /// Сумма значений по всем линиям.
@@ -30,9 +30,14 @@ namespace Bycicles
         public int Total { get; private set; }
 
         /// <summary>
-        /// Наибольшее знаечение среди всех линий.
+        /// Наибольшее значение среди всех линий.
         /// </summary>
         public int Highest { get; private set; }
+
+        /// <summary>
+        /// Достигло ли хоть одно значение предела накопления в доске.
+        /// </summary>
+        public bool IsFilled => Highest == Height;
 
         //=====================================================================================================||
         // Constructors
@@ -40,14 +45,14 @@ namespace Bycicles
         /// <summary>
         /// Конструктор.
         /// </summary>
-        /// <param name="lines"> Количество линий. </param>
-        /// <param name="overload"> Максимальное значение в линии. </param>
-        public Galton(int lines, int overload)
+        /// <param name="width"> Количество линий. </param>
+        /// <param name="height"> Максимальное значение в линии. </param>
+        public Galton(int width, int height)
         {
-            Lines = lines.ExNotBelow(1, "Galton lines.");
-            Overload = overload.ExNotBelow(1, "Galton overload.");
+            Width = width.ExNotBelow(1, "Galton lines.");
+            Height = height.ExNotBelow(1, "Galton overload.");
 
-            _desk = new int[Lines];
+            _desk = new int[Width];
         }
 
         //=====================================================================================================||
@@ -57,10 +62,10 @@ namespace Bycicles
         /// Добавляет значения в указанную линию.
         /// </summary>
         /// <param name="line"> Номер линии. </param>
-        public void Add(int line)
+        public void InsertInLine(int line)
         {
             line.ExNotBelow(0, "Line.");
-            line.ExNotAbove(Lines - 1, "Line number.");
+            line.ExNotAbove(Width - 1, "Line number.");
 
             _desk[line]++;
 
@@ -69,8 +74,8 @@ namespace Bycicles
             if(_desk[line] > Highest)
                 Highest = _desk[line];
 
-            if(Highest > Overload)
-                Change(Overload - Highest);
+            if(Highest > Height)
+                Change(Height - Highest);
         }
 
         //=====================================================================================================||
@@ -85,13 +90,13 @@ namespace Bycicles
             for(int i = 0; i < _desk.Length; i++)
             {
                 _desk[i] += step;
-                _desk[i] = _desk[i].NotBelow(0).NotAbove(Overload);
+                _desk[i] = _desk[i].NotBelow(0).NotAbove(Height);
 
                 Total += _desk[i];
             }
 
             Highest += step;
-            Highest = Highest.NotBelow(0).NotAbove(Overload);
+            Highest = Highest.NotBelow(0).NotAbove(Height);
         }
 
         //=====================================================================================================||
@@ -132,12 +137,12 @@ namespace Bycicles
             for(int i = 0; i < _desk.Length; i++)
             {
                 _desk[i] = _desk[i].EnClose(level, step);
-                _desk[i] = _desk[i].NotBelow(0).NotAbove(Overload);
+                _desk[i] = _desk[i].NotBelow(0).NotAbove(Height);
                 Total += _desk[i];
             }
 
             Highest.EnClose(level, step);
-            Highest = Highest.NotBelow(0).NotAbove(Overload);
+            Highest = Highest.NotBelow(0).NotAbove(Height);
         }
 
         //=====================================================================================================||
@@ -157,7 +162,7 @@ namespace Bycicles
                 if(_desk[i] < level)
                 {
                     _desk[i] = _desk[i].EnClose(level, step);
-                    _desk[i] = _desk[i].NotBelow(0).NotAbove(Overload);
+                    _desk[i] = _desk[i].NotBelow(0).NotAbove(Height);
                 }
 
                 Total += _desk[i];
@@ -166,7 +171,7 @@ namespace Bycicles
             if(Highest < level)
             {
                 Highest.EnClose(level, step);
-                Highest = Highest.NotBelow(0).NotAbove(Overload);
+                Highest = Highest.NotBelow(0).NotAbove(Height);
             }
         }
 
@@ -187,7 +192,7 @@ namespace Bycicles
                 if(_desk[i] > level)
                 {
                     _desk[i] = _desk[i].EnClose(level, step);
-                    _desk[i] = _desk[i].NotBelow(0).NotAbove(Overload);
+                    _desk[i] = _desk[i].NotBelow(0).NotAbove(Height);
                 }
 
                 Total += _desk[i];
@@ -196,7 +201,7 @@ namespace Bycicles
             if(Highest > level)
             {
                 Highest.EnClose(level, step);
-                Highest = Highest.NotBelow(0).NotAbove(Overload);
+                Highest = Highest.NotBelow(0).NotAbove(Height);
             }
         }
 
@@ -206,12 +211,12 @@ namespace Bycicles
         /// </summary>
         public void Fill(int val)
         {
-            val = val.NotBelow(0).NotAbove(Overload);
+            val = val.NotBelow(0).NotAbove(Height);
 
             for(int i = 0; i < _desk.Length; i++)
                 _desk[i] = val;
 
-            Total = val * Lines;
+            Total = val * Width;
             Highest = val;
         }
 
@@ -220,13 +225,7 @@ namespace Bycicles
         /// Возвращает номер линии, выбранный случайным образом. Шансы линии попасть в результат прямо пропорциональны значению в ней.
         /// </summary>
         /// <returns></returns>
-        public int GetLine()
-        {
-            if(Highest > 0)
-                return rnd.GetLuckyOne(_desk);
-            else
-                throw new Exception("Galton is empty.");
-        }
+        public int GetRandLine() => rnd.GetLuckyOne(_desk);
 
         //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         /// <summary>
@@ -234,9 +233,9 @@ namespace Bycicles
         /// </summary>
         /// <param name="length"> Длина линии. </param>
         /// <returns></returns>
-        public int GetLine(out int length)
+        public int GetRandLine(out int length)
         {
-            int result = GetLine();
+            int result = GetRandLine();
             length = _desk[result];
 
             return result;
@@ -248,9 +247,9 @@ namespace Bycicles
         /// </summary>
         /// <param name="chances"> Вероятность, которой обладала линия, попавшая в результат. </param>
         /// <returns></returns>
-        public int GetLine(out double chances)
+        public int GetRandLine(out double chances)
         {
-            int result = GetLine();
+            int result = GetRandLine();
             chances = (double)_desk[result] / Total;
 
             return result;

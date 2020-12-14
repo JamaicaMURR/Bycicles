@@ -10,12 +10,12 @@ namespace Tests
         [TestMethod]
         public void T_GetVal()
         {
-            D_Galton dg = new D_Galton(2, 100, 0, 1);
+            Double_Galton dg = new Double_Galton(2, 100, 0, 1);
 
-            dg.Add(0.1);
-            dg.Add(0.2);
+            dg.InsertValue(0.1);
+            dg.InsertValue(0.2);
 
-            Assert.AreEqual(0.15, dg.GetVal(), 0.001);
+            Assert.AreEqual(0.15, dg.GetRandVal(), 0.001);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Tests
 
             for(int i = 0; i < 5; i++)
                 for(int j = 0; j < i; j++)
-                    g.Add(i);
+                    g.InsertInLine(i);
 
             g.Change(10);
 
@@ -30,7 +30,7 @@ namespace Tests
 
             for(int i = 0; i < 5; i++)
                 for(int j = 0; j < i; j++)
-                    g.Add(i);
+                    g.InsertInLine(i);
 
             g.Equalize(2, 5);
 
@@ -44,7 +44,7 @@ namespace Tests
 
             for(int i = 0; i < 5; i++)
                 for(int j = 0; j < i; j++)
-                    g.Add(i);
+                    g.InsertInLine(i);
 
             g.Slice(2);
 
@@ -58,7 +58,7 @@ namespace Tests
 
             for(int i = 0; i < 5; i++)
                 for(int j = 0; j < i; j++)
-                    g.Add(i);
+                    g.InsertInLine(i);
 
             g.Rise(3, 1);
 
@@ -72,7 +72,7 @@ namespace Tests
 
             for(int i = 0; i < 5; i++)
                 for(int j = 0; j < i; j++)
-                    g.Add(i);
+                    g.InsertInLine(i);
 
             g.Fall(2, 5);
 
@@ -86,11 +86,11 @@ namespace Tests
 
             for(int i = 0; i < 5; i++)
                 for(int j = 0; j < i; j++)
-                    g.Add(i);
+                    g.InsertInLine(i);
 
             for(int i = 0; i < 100; i++)
             {
-                int line = g.GetLine(out double chance);
+                int line = g.GetRandLine(out double chance);
 
                 Assert.IsTrue(line == 1 ^ line == 2 ^ line == 3 ^ line == 4, "Wrong line! " + line + " chance " + chance);
                 Assert.IsTrue(chance == 0.1 ^ chance == 0.2 ^ chance == 0.3 ^ chance == 0.4, "Wrong chance! " + chance);
@@ -102,9 +102,9 @@ namespace Tests
         {
             Galton g = new Galton(5, 100);
 
-            g.Fill(g.Overload);
+            g.Fill(g.Height);
 
-            int line = g.GetLine(out double chance);
+            int line = g.GetRandLine(out double chance);
 
             Assert.IsTrue((line == 0 && chance == 0.2) ^ (line == 1 && chance == 0.2) ^ (line == 2 && chance == 0.2)
                 ^ (line == 3 && chance == 0.2) ^ (line == 4 && chance == 0.2));

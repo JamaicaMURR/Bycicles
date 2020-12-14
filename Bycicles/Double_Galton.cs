@@ -1,13 +1,11 @@
-﻿using Bycicles.Randoms;
-using Bycicles.Ranges;
-using System;
+﻿using Bycicles.Ranges;
 
 namespace Bycicles
 {
     /// <summary>
     /// Накопитель значений.
     /// </summary>
-    public class D_Galton : Galton
+    public class Double_Galton : Galton
     {
         double _min;
         double _max;
@@ -19,16 +17,16 @@ namespace Bycicles
         /// <summary>
         /// Конструктор.
         /// </summary>
-        /// <param name="lines"> Количество линий. </param>
-        /// <param name="overload"> Максимальное значение в линии. </param>
+        /// <param name="width"> Количество линий. </param>
+        /// <param name="height"> Максимальное значение в линии. </param>
         /// <param name="min"> Минимальное значение обрабатываемого сигнала. </param>
         /// <param name="max"> Максимальное значение обрабатываемого сигнала. </param>
-        public D_Galton(int lines, int overload, double min, double max) : base(lines, overload)
+        public Double_Galton(int width, int height, double min, double max) : base(width, height)
         {
-            _avers = new Average[lines];
+            _avers = new Average[width];
 
             for(int i = 0; i < _avers.Length; i++)
-                _avers[i] = new Average() { Overload = overload };
+                _avers[i] = new Average() { Overload = height };
 
             _min = min;
             _max = max;
@@ -41,11 +39,11 @@ namespace Bycicles
         /// Добавляет значение.
         /// </summary>
         /// <param name="value"> Значение. </param>
-        public void Add(double value)
+        public void InsertValue(double value)
         {
-            int line = value.EnSec(_min, _max, Lines);
+            int line = value.EnSec(_min, _max, Width);
 
-            base.Add(line);
+            base.InsertInLine(line);
             _avers[line].Add(value);
         }
 
@@ -54,6 +52,6 @@ namespace Bycicles
         /// Возвращает одно из значений.
         /// </summary>
         /// <returns></returns>
-        public double GetVal() => _avers[GetLine()].Val;
+        public double GetRandVal() => _avers[GetRandLine()].Val;
     }
 }
