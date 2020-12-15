@@ -43,7 +43,7 @@ namespace Bycicles
         {
             int line = value.EnSec(_min, _max, Width);
 
-            base.InsertInLine(line);
+            InsertInLine(line);
             _avers[line].Add(value);
         }
 

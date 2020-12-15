@@ -26,6 +26,7 @@ namespace Tests
 
             Assert.AreEqual(2, t.Oldest);
             Assert.AreEqual(4, t.Newest);
+            Assert.AreEqual(3, t[1]);
         }
     }
 }

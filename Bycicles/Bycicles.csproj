@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Average.cs" />
+    <Compile Include="Bool_Average.cs" />
     <Compile Include="Double_Galton.cs" />
     <Compile Include="Galton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
