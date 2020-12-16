@@ -13,17 +13,10 @@ namespace Bycicles
         byte[] _desk;
         byte _height;
 
-        byte _highestLine = 0;
-
         /// <summary>
         /// Индексатор.
         /// </summary>
         public byte this[byte i] => _desk[i];
-
-        /// <summary>
-        /// Достигло ли хоть одно значение предела накопления в доске.
-        /// </summary>
-        public bool IsFilled => _highestLine == _height;
 
         //=====================================================================================================||
         // Constructor
@@ -35,11 +28,11 @@ namespace Bycicles
         /// <param name="height"> Высота доски. </param>
         public Small_Galton(byte width, byte height)
         {
-            if(width == 0)
-                throw new Exception("Width is 0!");
+            if(width < 2)
+                throw new Exception("Width is below 2!");
 
-            if(height == 0)
-                throw new Exception("Height is 0!");
+            if(height < 2)
+                throw new Exception("Height is below 2!");
 
             _desk = new byte[width];
             _height = height;
@@ -49,7 +42,7 @@ namespace Bycicles
         // Methods
         //=====================================================================================================||
         /// <summary>
-        /// Увеличивает на 1 значение в указанной линии на доске.
+        /// Увеличивает значение в указанной линии на доске.
         /// </summary>
         /// <param name="line"> Номер линии. </param>
         public void InsertInLine(byte line)
@@ -63,11 +56,9 @@ namespace Bycicles
                         _desk[b]--;
 
             _desk[line]++;
-
-            if(_desk[line] > _highestLine)
-                _highestLine = _desk[line];
         }
 
+        //=====================================================================================================||
         /// <summary>
         /// Возвращает номер линии, выбранный случайным образом с учётом шансов из значений в линиях.
         /// </summary>
