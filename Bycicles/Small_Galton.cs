@@ -64,5 +64,15 @@ namespace Bycicles
         /// </summary>
         /// <returns> Результат. </returns>
         public byte GetRandom() => (byte)rnd.GetLuckyOne(_desk);
+
+        //=====================================================================================================||
+        /// <summary>
+        /// Возвращает объект в исходное состояние.
+        /// </summary>
+        public void Wipe()
+        {
+            for(byte b = 0; b < _desk.Length; b++)
+                _desk[b] = 0;
+        }
     }
 }
