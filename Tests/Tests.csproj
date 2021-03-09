@@ -58,6 +58,7 @@
     <Compile Include="T_Galton.cs" />
     <Compile Include="T_Ranges.cs" />
     <Compile Include="T_Small_Galton.cs" />
+    <Compile Include="T_StringFormats.cs" />
     <Compile Include="T_Tail.cs" />
   </ItemGroup>
   <ItemGroup>

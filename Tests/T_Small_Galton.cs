@@ -33,26 +33,6 @@ namespace Tests
         }
 
         [TestMethod]
-        public void T_IsFilled()
-        {
-            Small_Galton tsg = new Small_Galton(5, 5);
-
-            for(byte b1 = 0; b1 < 5; b1++)
-                for(byte b2 = 0; b2 < b1; b2++)
-                    tsg.InsertInLine(b1);
-
-            Assert.IsFalse(tsg.IsFilled);
-
-            tsg.InsertInLine(4);
-
-            Assert.IsTrue(tsg.IsFilled);
-
-            tsg.InsertInLine(4);
-
-            Assert.IsTrue(tsg.IsFilled);
-        }
-
-        [TestMethod]
         public void T_GetRandom()
         {
             Small_Galton tsg = new Small_Galton(5, 5);

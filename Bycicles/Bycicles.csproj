@@ -46,11 +46,13 @@
     <Compile Include="Average.cs" />
     <Compile Include="Bool_Average.cs" />
     <Compile Include="Double_Galton.cs" />
+    <Compile Include="Enums\TMode.cs" />
     <Compile Include="Galton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Randoms.cs" />
     <Compile Include="Ranges.cs" />
     <Compile Include="Small_Galton.cs" />
+    <Compile Include="StringFormats.cs" />
     <Compile Include="Tail.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
