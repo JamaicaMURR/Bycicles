@@ -98,6 +98,15 @@ namespace Bycicles.Ranges
             return result;
         }
 
+        //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        /// <summary>
+        /// Возвращает обрезку начального параметра по нижней границе значений.
+        /// </summary>
+        /// <param name="val"> Начальный параметр. </param>
+        /// <param name="min"> Нижняя граница значений. </param>
+        /// <returns></returns>
+        public static uint NotBelow(this uint val, uint min) => val < min ? min : val;
+
         //=====================================================================================================||
         /// <summary>
         /// Выбрасыавет исключение, если начальный параметр меньше указанного.
@@ -180,6 +189,15 @@ namespace Bycicles.Ranges
             return result;
         }
 
+        //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        /// <summary>
+        /// Возвращает обрезку начального параметра по верхней границе значений.
+        /// </summary>
+        /// <param name="val"> Начальный параметр. </param>
+        /// <param name="max"> Верхняя граница значений. </param>
+        /// <returns></returns>
+        public static uint NotAbove(this uint val, uint max) => val > max ? max : val;
+
         //=====================================================================================================||
         /// <summary>
         /// Выбрасыавет исключение, если начальный параметр выше указанного.
@@ -204,7 +222,7 @@ namespace Bycicles.Ranges
         /// <param name="max"> Максимальное значение. </param>
         /// <param name="message"> Сообщение. </param>
         /// <returns></returns>
-        public static float ExNotAbove(this float val, double max, string message = "") => (float)Convert.ToDouble(val).ExNotAbove(max);
+        public static float ExNotAbove(this float val, double max, string message = "") => (float)Convert.ToDouble(val).ExNotAbove(max, message);
 
         //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         /// <summary>
