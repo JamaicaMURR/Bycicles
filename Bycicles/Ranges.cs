@@ -149,6 +149,23 @@ namespace Bycicles.Ranges
             return val;
         }
 
+
+        //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        /// <summary>
+        /// Выбрасыавет исключение, если начальный параметр меньше указанного.
+        /// </summary>
+        /// <param name="val"> Начальный параметр. </param>
+        /// <param name="min"> Минимальное значение. </param>
+        /// <param name="message"> Сообщение. </param>
+        /// <returns></returns>
+        public static uint ExNotBelow(this uint val, double min, string message = "")
+        {
+            if(val < min)
+                throw new Exception($"Value is below {min}! {message}");
+
+            return val;
+        }
+
         //=====================================================================================================||
         /// <summary>
         /// Возвращает обрезку начального параметра по верхней границе значений.
@@ -233,6 +250,22 @@ namespace Bycicles.Ranges
         /// <param name="message"> Сообщение. </param>
         /// <returns></returns>
         public static int ExNotAbove(this int val, double max, string message = "")
+        {
+            if(val > max)
+                throw new Exception($"Value is above {max}! {message}");
+
+            return val;
+        }
+
+        //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        /// <summary>
+        /// Выбрасыавет исключение, если начальный параметр выше указанного.
+        /// </summary>
+        /// <param name="val"> Начальный параметр. </param>
+        /// <param name="max"> Максимальное значение. </param>
+        /// <param name="message"> Сообщение. </param>
+        /// <returns></returns>
+        public static uint ExNotAbove(this uint val, double max, string message = "")
         {
             if(val > max)
                 throw new Exception($"Value is above {max}! {message}");
