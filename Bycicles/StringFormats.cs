@@ -71,5 +71,13 @@ namespace Bycicles.StringFormats
 
             return result;
         }
+
+        //=====================================================================================================||
+        /// <summary>
+        /// Возвращает Х или О в завсисимости от значения передавемой переменной.
+        /// </summary>
+        /// <param name="val"> Исходное значение. </param>
+        /// <returns></returns>
+        public static string DefineAsXO(this bool val) => val ? "X" : "O";
     }
 }
