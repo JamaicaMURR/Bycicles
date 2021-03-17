@@ -74,6 +74,23 @@ namespace Bycicles.StringFormats
 
         //=====================================================================================================||
         /// <summary>
+        /// Создаёт строку из повтрояющейся указанное количество раз исходной строки.
+        /// </summary>
+        /// <param name="str"> Исходная строка. </param>
+        /// <param name="multiplier"> Множитель. </param>
+        /// <returns></returns>
+        public static string Spam(this string str, uint multiplier)
+        {
+            string result = "";
+
+            for(uint i = 0; i < multiplier; i++)
+                result += str;
+
+            return result;
+        }
+
+        //=====================================================================================================||
+        /// <summary>
         /// Возвращает Х или О в завсисимости от значения передавемой переменной.
         /// </summary>
         /// <param name="val"> Исходное значение. </param>
