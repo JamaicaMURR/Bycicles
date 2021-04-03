@@ -362,10 +362,10 @@ namespace Bycicles.Ranges
         /// <returns></returns>
         public static int EnSec(this double val, double minran, double maxran, int sections)
         {
-            minran.ExNotAbove(maxran, "EnSec range.");
-            val.ExNotBelow(minran, "EnSec value.");
-            val.ExNotAbove(maxran, "EnSec value.");
-            sections.ExNotBelow(1, "EnSec sections number.");
+            minran.ExNotAbove(maxran, "EnSec range");
+            val.ExNotBelow(minran, "EnSec value");
+            val.ExNotAbove(maxran, "EnSec value");
+            sections.ExNotBelow(1, "EnSec sections number");
 
             double sectionSize = minran.Gap(maxran) / sections;
 
@@ -383,10 +383,10 @@ namespace Bycicles.Ranges
         /// <returns></returns>
         public static double DeSec(this int section, double minran, double maxran, int sections)
         {
-            minran.ExNotAbove(maxran, "Range.");
-            section.ExNotBelow(0, "Section.");
-            section.ExNotAbove(sections - 1, "Section.");
-            sections.ExNotBelow(1, "Sections number.");
+            minran.ExNotAbove(maxran, "Range");
+            section.ExNotBelow(0, "Section");
+            section.ExNotAbove(sections - 1, "Section");
+            sections.ExNotBelow(1, "Sections number");
 
             double sectionSize = minran.Gap(maxran) / sections;
 
@@ -403,7 +403,7 @@ namespace Bycicles.Ranges
         /// <returns></returns>
         public static double EnClose(this double val, double targetval, double stepsize)
         {
-            stepsize.ExNotBelow(0, "Stepsize.");
+            stepsize.ExNotBelow(0, "Stepsize");
 
             double result;
 

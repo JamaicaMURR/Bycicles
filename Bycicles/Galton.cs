@@ -49,8 +49,10 @@ namespace Bycicles
         /// <param name="height"> Максимальное значение в линии. </param>
         public Galton(int width, int height)
         {
-            Width = width.ExNotBelow(1, "Galton lines.");
-            Height = height.ExNotBelow(1, "Galton overload.");
+            Width = width.ExNotBelow(1, "Galton width");
+            Height = height.ExNotBelow(1, "Galton height");
+
+            Height.ExNotAbove(int.MaxValue - 1, "Galton height is too high");
 
             _desk = new int[Width];
         }
@@ -64,8 +66,8 @@ namespace Bycicles
         /// <param name="line"> Номер линии. </param>
         public void InsertInLine(int line)
         {
-            line.ExNotBelow(0, "Line.");
-            line.ExNotAbove(Width - 1, "Line number.");
+            line.ExNotBelow(0, "Line not exists");
+            line.ExNotAbove(Width - 1, "Line not exists");
 
             _desk[line]++;
 
@@ -85,6 +87,8 @@ namespace Bycicles
         /// <param name="step"> Величина изменения. </param>
         public void Change(int step)
         {
+            step.ExNotAbove(int.MaxValue - Highest, "Step is too big");
+
             Total = 0;
 
             for(int i = 0; i < _desk.Length; i++)

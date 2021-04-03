@@ -21,7 +21,7 @@ namespace Bycicles
         public double Mass
         {
             get => _mass;
-            set => _mass = value.ExNotBelow(0, "Mass.").NotAbove(Overload);
+            set => _mass = value.ExNotBelow(0, "Mass").NotAbove(Overload);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Bycicles
             get => _overload;
             set
             {
-                _overload = value.ExNotBelow(0, "Overload.");
+                _overload = value.ExNotBelow(0, "Overload");
                 _mass = _mass.NotAbove(_overload);
             }
         }
@@ -74,7 +74,8 @@ namespace Bycicles
         /// <param name="weight"> Вес значения. </param>
         public void Add(double newval, double weight = 1)
         {
-            weight.ExNotBelow(0, "Weight.");
+            weight.ExNotBelow(0, "Weight");
+            weight.ExNotAbove(double.MaxValue - Mass, "Weight is too high");
 
             if(Mass + weight > 0)
             {
