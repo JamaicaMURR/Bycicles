@@ -1,11 +1,11 @@
 ﻿using Bycicles.Ranges;
 
-namespace Bycicles.StringFormats
+namespace Bycicles.StringExtensions
 {
     /// <summary>
     /// Расширения для форматирования строк.
     /// </summary>
-    public static class StringFormats
+    public static class StringExtensions
     {
         /// <summary>
         /// Обрезает строку до указанной длины, вставляя точки, если обрезка была произведена.
@@ -87,14 +87,6 @@ namespace Bycicles.StringFormats
                 result += str;
 
             return result;
-        }
-
-        //=====================================================================================================||
-        /// <summary>
-        /// Возвращает Х или О в завсисимости от значения передавемой переменной.
-        /// </summary>
-        /// <param name="val"> Исходное значение. </param>
-        /// <returns></returns>
-        public static string DefineAsXO(this bool val) => val ? "X" : "O";
+        }        
     }
 }

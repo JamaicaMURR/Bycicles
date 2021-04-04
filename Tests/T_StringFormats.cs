@@ -1,5 +1,5 @@
 ﻿using System;
-using Bycicles.StringFormats;
+using Bycicles.StringExtensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests
