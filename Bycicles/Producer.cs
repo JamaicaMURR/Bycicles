@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Bycicles
 {
@@ -31,6 +32,13 @@ namespace Bycicles
         /// Создаёт и возвращает объект.
         /// </summary>
         /// <returns></returns>
-        public T Produce() => (T)Activator.CreateInstance(_type, _arguments);
+        public T Produce(params object[] instantArgs)
+        {
+            List<object> allArgs = new List<object>(instantArgs);
+
+            allArgs.Add(_arguments);
+
+            return (T)Activator.CreateInstance(_type, allArgs);
+        }
     }
 }

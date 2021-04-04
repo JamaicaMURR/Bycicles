@@ -132,9 +132,10 @@ namespace Bycicles
         /// </summary>
         /// <param name="level"> Целевое значение. </param>
         /// <param name="step"> Шаг. </param>
-        public void Equalize(int level, int step)
+        public void Equalize(int level, int step = 1)
         {
             step.ExNotBelow(0, "Step.");
+            step.ExNotAbove(int.MaxValue - Highest, "Step is too big");
 
             Total = 0;
 
@@ -158,6 +159,7 @@ namespace Bycicles
         public void Rise(int level, int step)
         {
             step.ExNotBelow(0, "Step.");
+            step.ExNotAbove(int.MaxValue - Highest, "Step is too big");
 
             Total = 0;
 

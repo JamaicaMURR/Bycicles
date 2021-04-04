@@ -1,4 +1,5 @@
 ﻿using Bycicles.Ranges;
+using System;
 
 namespace Bycicles
 {
@@ -6,17 +7,18 @@ namespace Bycicles
     /// Индексированная очередь.
     /// </summary>
     /// <typeparam name="T"> Тип элементов. </typeparam>
-    public class Tail<T> where T : struct
+    public class Tail<T>
     {
         T[] _tail;
 
-        int _index = 0;
+        int _inserter = 0;
+        int _count = 0;
 
         //=====================================================================================================||
-        int Index
+        int Inserter
         {
-            get => _index;
-            set => _index = value < Length ? value : 0;
+            get => _inserter;
+            set => _inserter = value < Length ? value : 0;
         }
 
         //=====================================================================================================||
@@ -32,10 +34,13 @@ namespace Bycicles
                 i.ExNotBelow(0, "Indexer.");
                 i.ExNotAbove(Length - 1);
 
-                int shifted = Index - i - 1;
+                int shifted = Inserter - 1 - i;
 
                 if(shifted < 0)
                     shifted = Length + shifted;
+
+                if(shifted >= Count)
+                    throw new Exception("Member not exists");
 
                 return _tail[shifted];
             }
@@ -45,7 +50,7 @@ namespace Bycicles
         /// <summary>
         /// Старейший член очереди.
         /// </summary>
-        public T Oldest => this[Length - 1];
+        public T Oldest => this[Count - 1];
 
         /// <summary>
         /// Новейший член очереди.
@@ -56,6 +61,15 @@ namespace Bycicles
         /// Длина очереди.
         /// </summary>
         public int Length => _tail.Length;
+
+        /// <summary>
+        /// Счёт. Количество хранимых в очереди значений.
+        /// </summary>
+        public int Count
+        {
+            get => _count;
+            private set => _count = value.NotAbove(Length);
+        }
 
         //=====================================================================================================||
         // Constructor
@@ -80,8 +94,29 @@ namespace Bycicles
         /// <param name="member"> Добавляемый член. </param>
         public void Add(T member)
         {
-            _tail[Index] = member;
-            Index++;
+            _tail[Inserter] = member;
+            Inserter++;
+            Count++;
+        }
+
+        //=====================================================================================================||
+        /// <summary>
+        /// Определяет, содержится ли в очереди указанный объект.
+        /// </summary>
+        /// <param name="member"> Объект. </param>
+        /// <returns></returns>
+        public bool Contains(T member)
+        {
+            bool result = false;
+
+            for(int i = 0; i < Count; i++)
+                if(_tail[i].Equals(member))
+                {
+                    result = true;
+                    break;
+                }
+
+            return result;
         }
     }
 }
