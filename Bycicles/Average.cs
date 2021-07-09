@@ -75,11 +75,13 @@ namespace Bycicles
         public void Add(double newval, double weight = 1)
         {
             weight.ExNotBelow(0, "Weight");
-            weight.ExNotAbove(double.MaxValue - Mass, "Weight is too high");
+
+            if(weight > Overload - Mass)
+                Mass = Overload - weight;
 
             if(Mass + weight > 0)
             {
-                Val += (newval - Val) * weight / (Mass + weight);
+                Val += (newval - Val) * (weight / (Mass + weight));
                 Mass += weight;
             }
         }
