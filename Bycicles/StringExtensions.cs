@@ -5,15 +5,15 @@ using System.Collections.Generic;
 namespace Bycicles.StringExtensions
 {
     /// <summary>
-    /// Расширения для форматирования строк.
+    /// Расширения для форматирования строк
     /// </summary>
     public static class StringExtensions
     {
         /// <summary>
-        /// Обрезает строку до указанной длины, вставляя точки, если обрезка была произведена.
+        /// Обрезает строку до указанной длины, вставляя точки, если обрезка была произведена
         /// </summary>
-        /// <param name="str"> Строка. </param>
-        /// <param name="targetLength"> Целевая длина. </param>
+        /// <param name="str"> Строка </param>
+        /// <param name="targetLength"> Целевая длина </param>
         /// <returns></returns>
         public static string CutToLength(this string str, int targetLength)
         {
@@ -32,10 +32,10 @@ namespace Bycicles.StringExtensions
 
         //=====================================================================================================||
         /// <summary>
-        /// Форматирует строку добавляя пробелы или обрезая справа.
+        /// Форматирует строку добавляя пробелы или обрезая справа
         /// </summary>
-        /// <param name="str"> Строка. </param>
-        /// <param name="targetLength"> Целевая длина. </param>
+        /// <param name="str"> Строка </param>
+        /// <param name="targetLength"> Целевая длина </param>
         /// <returns></returns>
         public static string FormToLengthRight(this string str, int targetLength)
         {
@@ -51,10 +51,10 @@ namespace Bycicles.StringExtensions
 
         //=====================================================================================================||
         /// <summary>
-        /// Форматирует строку добавляя пробелы или обрезая слева.
+        /// Форматирует строку добавляя пробелы или обрезая слева
         /// </summary>
-        /// <param name="str"> Строка. </param>
-        /// <param name="targetLength"> Целевая длина. </param>
+        /// <param name="str"> Строка </param>
+        /// <param name="targetLength"> Целевая длина </param>
         /// <returns></returns>
         public static string FormToLengthLeft(this string str, int targetLength)
         {
@@ -76,10 +76,10 @@ namespace Bycicles.StringExtensions
 
         //=====================================================================================================||
         /// <summary>
-        /// Создаёт строку из повтрояющейся указанное количество раз исходной строки.
+        /// Создаёт строку из повтрояющейся указанное количество раз исходной строки
         /// </summary>
-        /// <param name="str"> Исходная строка. </param>
-        /// <param name="multiplier"> Множитель. </param>
+        /// <param name="str"> Исходная строка </param>
+        /// <param name="multiplier"> Множитель </param>
         /// <returns></returns>
         public static string Spam(this string str, int multiplier)
         {
@@ -93,10 +93,10 @@ namespace Bycicles.StringExtensions
 
         //=====================================================================================================||
         /// <summary>
-        /// 
+        /// Преобразует коллекцию строк в одну строку, разбитую указанным разделителем
         /// </summary>
-        /// <param name="strings"></param>
-        /// <param name="delimiter"></param>
+        /// <param name="strings"> Коллекция строк </param>
+        /// <param name="delimiter"> Разделитель </param>
         /// <returns></returns>
         public static string ConvertToStringList(this IEnumerable<string> strings, string delimiter = ", ")
         {

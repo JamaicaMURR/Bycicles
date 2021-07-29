@@ -4,9 +4,9 @@ using System;
 namespace Bycicles
 {
     /// <summary>
-    /// Индексированная очередь.
+    /// Индексированная очередь
     /// </summary>
-    /// <typeparam name="T"> Тип элементов. </typeparam>
+    /// <typeparam name="T"> Тип элементов </typeparam>
     public class Tail<T>
     {
         T[] _tail;
@@ -23,9 +23,9 @@ namespace Bycicles
 
         //=====================================================================================================||
         /// <summary>
-        /// Индексатор.
+        /// Индексатор
         /// </summary>
-        /// <param name="i"> Индекс. </param>
+        /// <param name="i"> Индекс </param>
         /// <returns></returns>
         public T this[int i]
         {
@@ -48,22 +48,22 @@ namespace Bycicles
 
         //=====================================================================================================||
         /// <summary>
-        /// Старейший член очереди.
+        /// Старейший член очереди
         /// </summary>
         public T Oldest => this[Count - 1];
 
         /// <summary>
-        /// Новейший член очереди.
+        /// Новейший член очереди
         /// </summary>
         public T Newest => this[0];
 
         /// <summary>
-        /// Длина очереди.
+        /// Длина очереди
         /// </summary>
         public int Length => _tail.Length;
 
         /// <summary>
-        /// Счёт. Количество хранимых в очереди значений.
+        /// Счёт. Количество хранимых в очереди значений
         /// </summary>
         public int Count
         {
@@ -75,9 +75,9 @@ namespace Bycicles
         // Constructor
         //=====================================================================================================||
         /// <summary>
-        /// Конструктор.
+        /// Конструктор
         /// </summary>
-        /// <param name="length"> Длина очереди. </param>
+        /// <param name="length"> Длина очереди </param>
         public Tail(int length)
         {
             length.ExNotBelow(1, "Length.");
@@ -89,9 +89,9 @@ namespace Bycicles
         // Methods
         //=====================================================================================================||
         /// <summary>
-        /// Добавляет нового члена в очередь.
+        /// Добавляет нового члена в очередь
         /// </summary>
-        /// <param name="member"> Добавляемый член. </param>
+        /// <param name="member"> Добавляемый член </param>
         public void Add(T member)
         {
             _tail[Inserter] = member;
@@ -101,9 +101,9 @@ namespace Bycicles
 
         //=====================================================================================================||
         /// <summary>
-        /// Определяет, содержится ли в очереди указанный объект.
+        /// Определяет, содержится ли в очереди указанный объект
         /// </summary>
-        /// <param name="member"> Объект. </param>
+        /// <param name="member"> Объект </param>
         /// <returns></returns>
         public bool Contains(T member)
         {
