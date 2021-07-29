@@ -81,11 +81,11 @@ namespace Bycicles.StringExtensions
         /// <param name="str"> Исходная строка. </param>
         /// <param name="multiplier"> Множитель. </param>
         /// <returns></returns>
-        public static string Spam(this string str, uint multiplier)
+        public static string Spam(this string str, int multiplier)
         {
             string result = "";
 
-            for(uint i = 0; i < multiplier; i++)
+            for(int i = 0; i < multiplier; i++)
                 result += str;
 
             return result;
