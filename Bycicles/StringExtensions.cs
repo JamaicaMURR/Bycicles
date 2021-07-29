@@ -1,4 +1,6 @@
 ﻿using Bycicles.Ranges;
+using System;
+using System.Collections.Generic;
 
 namespace Bycicles.StringExtensions
 {
@@ -87,6 +89,29 @@ namespace Bycicles.StringExtensions
                 result += str;
 
             return result;
-        }        
+        }
+
+        //=====================================================================================================||
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="strings"></param>
+        /// <param name="delimiter"></param>
+        /// <returns></returns>
+        public static string ConvertToStringList(this IEnumerable<string> strings, string delimiter = ", ")
+        {
+            string result = "";
+
+            Func<string> GetDelimiter = delegate ()
+            {
+                GetDelimiter = () => delimiter;
+                return "";
+            };
+
+            foreach(string s in strings)
+                result += GetDelimiter() + s;
+
+            return result;
+        }
     }
 }
