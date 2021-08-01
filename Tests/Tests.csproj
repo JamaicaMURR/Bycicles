@@ -57,6 +57,7 @@
     <Compile Include="T_Ranges.cs" />
     <Compile Include="T_StringFormats.cs" />
     <Compile Include="T_Tail.cs" />
+    <Compile Include="T_Protocol_Executioner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

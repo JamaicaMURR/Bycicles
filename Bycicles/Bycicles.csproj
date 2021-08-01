@@ -49,6 +49,7 @@
     <Compile Include="PearsonHasher.cs" />
     <Compile Include="Producer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProtocolExecutioner.cs" />
     <Compile Include="Randoms.cs" />
     <Compile Include="Ranges.cs" />
     <Compile Include="StringExtensions.cs" />
