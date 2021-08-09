@@ -1,4 +1,5 @@
 ﻿using Bycicles.Ranges;
+using System;
 
 namespace Bycicles
 {
@@ -9,6 +10,10 @@ namespace Bycicles
     {
         double _mass = 0;
         double _overload = double.MaxValue;
+
+        delegate void ValCalculator(double d1, double d2);
+
+        ValCalculator CalcVal;
 
         /// <summary>
         /// Результирующее значение.
@@ -47,6 +52,8 @@ namespace Bycicles
         {
             Val = val;
             Mass = mass;
+
+            ResetCalcVal();
         }
 
         //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -79,11 +86,7 @@ namespace Bycicles
             if(weight > Overload - Mass)
                 Mass = Overload - weight;
 
-            if(Mass + weight > 0)
-            {
-                Val += (newval - Val) * (weight / (Mass + weight));
-                Mass += weight;
-            }
+            CalcVal(newval, weight);
         }
 
         //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -101,6 +104,8 @@ namespace Bycicles
         {
             Val = 0;
             Mass = 0;
+
+            ResetCalcVal();
         }
 
         //=====================================================================================================||
@@ -210,5 +215,26 @@ namespace Bycicles
         /// <param name="b"> Слагаемое 2. </param>
         /// <returns></returns>
         public static double Summ(Average a, Average b) => (a + b).Val;
+
+        //=====================================================================================================||
+        void ResetCalcVal()
+        {
+            CalcVal = delegate (double newval, double weight)
+            {
+                if(Mass + weight > 0)
+                {
+                    Val += (newval - Val) * (weight / (Mass + weight));
+                    Mass += weight;
+
+                    CalcVal = delegate (double newval, double weight)
+                    {
+                        Val += (newval - Val) * (weight / (Mass + weight));
+                        Mass += weight;
+                    };
+                }
+                else
+                    Val = newval;
+            };
+        }
     }
 }
