@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bycicles</RootNamespace>
     <AssemblyName>Bycicles</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -24,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
     <LangVersion>latest</LangVersion>
     <DocumentationFile>bin\Debug\Bycicles.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,6 +34,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>latest</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -52,6 +54,7 @@
     <Compile Include="ProtocolExecutioner.cs" />
     <Compile Include="Randoms.cs" />
     <Compile Include="Ranges.cs" />
+    <Compile Include="ScoreBoard.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="Tail.cs" />
   </ItemGroup>
