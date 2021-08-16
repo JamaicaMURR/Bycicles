@@ -3,6 +3,15 @@ using System;
 
 namespace Bycicles
 {
+    /// <summary></summary>
+    public enum ScoreBoardMode
+    {
+        /// <summary></summary>
+        HigherBest,
+        /// <summary></summary>
+        LowerBest
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -10,14 +19,6 @@ namespace Bycicles
     /// <typeparam name="ST"></typeparam>
     public class ScoreBoard<CT, ST> where ST : IComparable
     {
-        /// <summary></summary>
-        public enum Mode
-        {
-            /// <summary></summary>
-            HigherBest,
-            /// <summary></summary>
-            LowerBest
-        }
 
         int _count;
 
@@ -53,11 +54,11 @@ namespace Bycicles
         /// </summary>
         /// <param name="size"></param>
         /// <param name="mode"></param>
-        public ScoreBoard(int size, Mode mode)
+        public ScoreBoard(int size, ScoreBoardMode mode)
         {
             size.ExNotBelow(1, "Size");
 
-            if(mode == Mode.HigherBest)
+            if(mode == ScoreBoardMode.HigherBest)
             {
                 InitialAnalysis = (x) => x < 0;
                 ControlAnalysis = (x) => x > 0;
