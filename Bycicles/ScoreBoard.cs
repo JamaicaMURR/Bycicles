@@ -10,12 +10,24 @@ namespace Bycicles
     /// <typeparam name="ST"></typeparam>
     public class ScoreBoard<CT, ST> where ST : IComparable
     {
+        /// <summary></summary>
+        public enum Mode
+        {
+            /// <summary></summary>
+            HigherBest,
+            /// <summary></summary>
+            LowerBest
+        }
+
         int _count;
 
         (CT, ST)[] _table;
 
         Action<int> SetCount;
         Func<CT, ST, bool> DoOnTryToInsert;
+
+        Func<int, bool> InitialAnalysis;
+        Func<int, bool> ControlAnalysis;
 
         /// <summary>
         /// 
@@ -40,9 +52,21 @@ namespace Bycicles
         /// 
         /// </summary>
         /// <param name="size"></param>
-        public ScoreBoard(int size)
+        /// <param name="mode"></param>
+        public ScoreBoard(int size, Mode mode)
         {
             size.ExNotBelow(1, "Size");
+
+            if(mode == Mode.HigherBest)
+            {
+                InitialAnalysis = (x) => x < 0;
+                ControlAnalysis = (x) => x > 0;
+            }
+            else
+            {
+                InitialAnalysis = (x) => x > 0;
+                ControlAnalysis = (x) => x < 0;
+            }
 
             _table = new (CT, ST)[size];
 
@@ -94,13 +118,13 @@ namespace Bycicles
 
             int comparingResult = _table[Count - 1].Item2.CompareTo(score);
 
-            if(comparingResult < 0)
+            if(InitialAnalysis(comparingResult))
             {
                 for(int i = Count - 2; i >= 0; i--)
                 {
                     comparingResult = _table[i].Item2.CompareTo(score);
 
-                    if(comparingResult > 0)
+                    if(ControlAnalysis(comparingResult))
                     {
                         InsertAt(i + 1, contender, score);
                         goto exit;
