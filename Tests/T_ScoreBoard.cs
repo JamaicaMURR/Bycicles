@@ -9,7 +9,7 @@ namespace Tests
         [TestMethod]
         public void TryToInsert_test()
         {
-            ScoreBoard<string, int> sb = new ScoreBoard<string, int>(3);
+            ScoreBoard<string, int> sb = new ScoreBoard<string, int>(3, ScoreBoardMode.HigherBest);
 
             sb.TryToInsert("worst", 34);
             sb.TryToInsert("best", 100);
