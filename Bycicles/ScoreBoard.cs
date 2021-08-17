@@ -1,5 +1,6 @@
 ﻿using Bycicles.Ranges;
 using System;
+using System.Collections;
 
 namespace Bycicles
 {
@@ -17,7 +18,7 @@ namespace Bycicles
     /// </summary>
     /// <typeparam name="CT"></typeparam>
     /// <typeparam name="ST"></typeparam>
-    public class ScoreBoard<CT, ST> where ST : IComparable
+    public class ScoreBoard<CT, ST> : IEnumerable where ST : IComparable
     {
 
         int _count;
@@ -45,6 +46,12 @@ namespace Bycicles
         /// <param name="i"></param>
         /// <returns></returns>
         public (CT, ST) this[int i] => _table[i];
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator GetEnumerator() => _table.GetEnumerator();
 
         //=====================================================================================================||
         // Constructor
@@ -137,6 +144,6 @@ namespace Bycicles
 
             exit:
             return success;
-        }
+        }        
     }
 }
