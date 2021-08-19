@@ -37,5 +37,33 @@ namespace Tests
             Assert.AreEqual(102, sb[1].Item2);
             Assert.AreEqual(120, sb[0].Item2);
         }
+
+        [TestMethod]
+        public void InsertWorst_test()
+        {
+            ScoreBoard<int, int> sb = new ScoreBoard<int, int>(10, ScoreBoardMode.LowerBest);
+
+            sb.TryToInsert(1, 1);
+            sb.TryToInsert(2, 2);
+            sb.TryToInsert(3, 3);
+
+            Assert.AreEqual(3, sb.Count);
+
+            Assert.AreEqual(1, sb[0].Item1);
+            Assert.AreEqual(2, sb[1].Item1);
+            Assert.AreEqual(3, sb[2].Item1);
+
+            sb = new ScoreBoard<int, int>(10, ScoreBoardMode.HigherBest);
+
+            sb.TryToInsert(3, 3);
+            sb.TryToInsert(2, 2);
+            sb.TryToInsert(1, 1);
+
+            Assert.AreEqual(3, sb.Count);
+
+            Assert.AreEqual(3, sb[0].Item1);
+            Assert.AreEqual(2, sb[1].Item1);
+            Assert.AreEqual(1, sb[2].Item1);
+        }
     }
 }

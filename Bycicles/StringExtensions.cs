@@ -10,66 +10,32 @@ namespace Bycicles.StringExtensions
     public static class StringExtensions
     {
         /// <summary>
-        /// Обрезает строку до указанной длины, вставляя точки, если обрезка была произведена
-        /// </summary>
-        /// <param name="str"> Строка </param>
-        /// <param name="targetLength"> Целевая длина </param>
-        /// <returns></returns>
-        public static string CutToLength(this string str, int targetLength)
-        {
-            targetLength.ExNotBelow(3, "TargetLength");
-
-            string result = str;
-
-            if(result.Length > targetLength)
-            {
-                result = result.Remove(targetLength - 2);
-                result += "..";
-            }
-
-            return result;
-        }
-
-        //=====================================================================================================||
-        /// <summary>
         /// Форматирует строку добавляя пробелы или обрезая справа
         /// </summary>
-        /// <param name="str"> Строка </param>
+        /// <param name="word"> Строка </param>
         /// <param name="targetLength"> Целевая длина </param>
+        /// <param name="shortening"></param>
         /// <returns></returns>
-        public static string FormToLengthRight(this string str, int targetLength)
+        public static string FormToLengthRight(this string word, int targetLength, string shortening = "~")
         {
-            targetLength.ExNotBelow(3, "TargetLength");
-
-            string result = str.CutToLength(targetLength);
-
-            while(result.Length < targetLength)
-                result += " ";
-
-            return result;
-        }
-
-        //=====================================================================================================||
-        /// <summary>
-        /// Форматирует строку добавляя пробелы или обрезая слева
-        /// </summary>
-        /// <param name="str"> Строка </param>
-        /// <param name="targetLength"> Целевая длина </param>
-        /// <returns></returns>
-        public static string FormToLengthLeft(this string str, int targetLength)
-        {
-            targetLength.ExNotBelow(3, "TargetLength");
-
-            string result = str;
+            string result = word;
 
             if(result.Length > targetLength)
             {
-                result = result.Remove(0, result.Length - targetLength + 2);
-                result = ".." + result;
+                string sMarker;
+
+                if(targetLength < shortening.Length)
+                    sMarker = "";
+                else
+                    sMarker = shortening;
+
+                result = result.Remove(targetLength - sMarker.Length);
+                result += sMarker;
             }
             else
-                while(result.Length < targetLength)
-                    result = " " + result;
+            {
+                result += " ".Spam(targetLength - result.Length);
+            }
 
             return result;
         }

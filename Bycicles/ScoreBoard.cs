@@ -26,6 +26,7 @@ namespace Bycicles
         (CT, ST)[] _table;
 
         Action<int> SetCount;
+        Action<CT, ST> FillBoard;
         Func<CT, ST, bool> DoOnTryToInsert;
 
         Func<int, bool> InitialAnalysis;
@@ -63,7 +64,7 @@ namespace Bycicles
         /// <param name="mode"></param>
         public ScoreBoard(int size, ScoreBoardMode mode)
         {
-            size.ExNotBelow(1, "Size");
+            size.ExNotBelow(1, "Size of ScoreBoard");
 
             if(mode == ScoreBoardMode.HigherBest)
             {
@@ -83,7 +84,9 @@ namespace Bycicles
                 if(value >= _table.Length)
                 {
                     _count = _table.Length;
+
                     SetCount = (value) => { };
+                    FillBoard = (c, s) => { };
                 }
                 else
                     _count = value;
@@ -95,6 +98,8 @@ namespace Bycicles
                 DoOnTryToInsert = ActualTryToInsert;
                 return true;
             };
+
+            FillBoard = (c, s) => InsertAt(Count, c, s);
         }
 
         //=====================================================================================================||
@@ -126,7 +131,7 @@ namespace Bycicles
 
             int comparingResult = _table[Count - 1].Item2.CompareTo(score);
 
-            if(InitialAnalysis(comparingResult))
+            if(InitialAnalysis(comparingResult)) // EXP:  || Count < _table.Length
             {
                 for(int i = Count - 2; i >= 0; i--)
                 {
@@ -141,9 +146,11 @@ namespace Bycicles
 
                 InsertAt(0, contender, score);
             }
+            else
+                FillBoard(contender, score);
 
             exit:
             return success;
-        }        
+        }
     }
 }

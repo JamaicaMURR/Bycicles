@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Average.cs" />
     <Compile Include="BoolExtensions.cs" />
+    <Compile Include="EasyGrid.cs" />
     <Compile Include="Galton.cs" />
     <Compile Include="PearsonHasher.cs" />
     <Compile Include="Producer.cs" />
